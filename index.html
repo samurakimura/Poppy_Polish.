@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poppy Polish | Nailed by Poppy · Nairobi</title>
+  <meta name="description" content="Poppy Polish — Nailed by Poppy. Premium nail artistry in Nairobi. Book gel, acrylic, nail art, manicures & pedicures. Call 0718605695." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink:#ff6b9d; --pink2:#ff4081; --coral:#ff7f6b;
+      --peach:#ffb347; --lilac:#c084fc; --mint:#4ecdc4;
+      --cream:#fff8f5; --deep:#1a0a14; --muted:#8a5870;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--deep);overflow-x:hidden}
+
+    /* cursor */
+    .cursor-dot{width:12px;height:12px;background:var(--pink);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,width .3s,height .3s;mix-blend-mode:multiply}
+    .cursor-ring{width:36px;height:36px;border:2px solid var(--pink);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease-out;opacity:.5}
+
+    /* NAV */
+    nav{position:fixed;top:0;width:100%;z-index:500;padding:1.1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(255,248,245,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,107,157,.12);transition:box-shadow .3s}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:900;background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+    .nav-logo span{font-style:italic}
+    .nav-links{display:flex;gap:2.2rem;list-style:none}
+    .nav-links a{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--pink);border-radius:2px;transition:width .3s}
+    .nav-links a:hover{color:var(--pink)}
+    .nav-links a:hover::after{width:100%}
+    .nav-cta{background:linear-gradient(135deg,var(--pink),var(--coral));color:#fff;padding:.62rem 1.6rem;border-radius:3rem;font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 20px rgba(255,107,157,.35);transition:transform .2s,box-shadow .2s}
+    .nav-cta:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 8px 32px rgba(255,107,157,.5)}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--deep);border-radius:2px;transition:all .3s}
+
+    /* HERO */
+    #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 2rem 4rem;text-align:center;position:relative;overflow:hidden}
+    .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.35;pointer-events:none;animation:drift 8s ease-in-out infinite alternate}
+    .blob1{width:500px;height:500px;background:var(--pink);top:-100px;right:-100px;animation-delay:0s}
+    .blob2{width:400px;height:400px;background:var(--lilac);bottom:-80px;left:-80px;animation-delay:2s}
+    .blob3{width:300px;height:300px;background:var(--peach);top:40%;left:10%;animation-delay:4s}
+    .blob4{width:260px;height:260px;background:var(--mint);bottom:10%;right:5%;animation-delay:1s}
+    @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,20px) scale(1.1)}}
+
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--pink);background:rgba(255,107,157,.1);padding:.45rem 1.2rem;border-radius:3rem;border:1px solid rgba(255,107,157,.25);margin-bottom:1.8rem;position:relative;z-index:1;animation:pop-in .7s cubic-bezier(.34,1.56,.64,1) both}
+    .hero-eyebrow .dot{width:7px;height:7px;background:var(--pink);border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+
+    .hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,9vw,7.5rem);font-weight:900;line-height:1.0;color:var(--deep);letter-spacing:-.02em;position:relative;z-index:1;animation:pop-in .8s cubic-bezier(.34,1.56,.64,1) .1s both}
+    .hero-title .grad{background:linear-gradient(135deg,var(--pink),var(--coral),var(--peach));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
+    .hero-title .italic{font-style:italic}
+    .hero-sub{font-size:1.1rem;color:var(--muted);line-height:1.8;max-width:520px;margin:1.5rem auto 2.5rem;position:relative;z-index:1;animation:pop-in .8s cubic-bezier(.34,1.56,.64,1) .2s both}
+    .hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;animation:pop-in .8s cubic-bezier(.34,1.56,.64,1) .3s both}
+
+    .btn-primary{background:linear-gradient(135deg,var(--pink),var(--coral));color:#fff;padding:1rem 2.4rem;border-radius:3rem;font-size:.95rem;font-weight:600;letter-spacing:.06em;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 8px 30px rgba(255,107,157,.4);transition:transform .25s,box-shadow .25s}
+    .btn-primary:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 40px rgba(255,107,157,.55)}
+    .btn-ghost{color:var(--deep);border:2px solid rgba(26,10,20,.18);padding:1rem 2.2rem;border-radius:3rem;font-size:.95rem;font-weight:500;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+    .btn-ghost:hover{border-color:var(--pink);color:var(--pink);transform:translateY(-2px)}
+
+    @keyframes pop-in{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+    /* FLOATING NAIL CHIPS */
+    .nail-float-wrap{position:relative;width:100%;max-width:900px;margin:3.5rem auto 0;height:220px;z-index:1;animation:pop-in .9s cubic-bezier(.34,1.56,.64,1) .4s both}
+    .nail-chip{position:absolute;border-radius:1.5rem;background:#fff;box-shadow:0 20px 50px rgba(255,107,157,.2),0 4px 12px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;padding:1rem .8rem;animation:float-card 4s ease-in-out infinite;cursor:pointer;transition:box-shadow .3s}
+    .nail-chip:hover{box-shadow:0 30px 60px rgba(255,107,157,.35),0 8px 20px rgba(0,0,0,.1)}
+    .nail-chip .chip-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+    .nc1{width:100px;height:130px;left:0%;top:20px;animation-delay:0s;--rot:-8deg}
+    .nc2{width:120px;height:150px;left:12%;top:10px;animation-delay:.5s;--rot:-3deg}
+    .nc3{width:140px;height:170px;left:50%;top:0px;animation-delay:.2s;--rot:0deg;transform:translateX(-50%)}
+    .nc4{width:120px;height:150px;right:12%;top:10px;animation-delay:.7s;--rot:3deg}
+    .nc5{width:100px;height:130px;right:0%;top:20px;animation-delay:.3s;--rot:8deg}
+    @keyframes float-card{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}50%{transform:translateY(-14px) rotate(var(--rot,0deg))}}
+    .nc3{animation:float-card-center 4s ease-in-out infinite .2s}
+    @keyframes float-card-center{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-14px)}}
+
+    /* MARQUEE */
+    .marquee-strip{background:var(--deep);overflow:hidden;padding:1.1rem 0}
+    .marquee-track{display:flex;width:max-content;animation:marquee 20s linear infinite}
+    .marquee-item{display:flex;align-items:center;gap:.8rem;font-size:.9rem;color:rgba(255,255,255,.6);white-space:nowrap;padding:0 2rem}
+    .marquee-gem{color:var(--pink);font-size:1rem}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* SECTIONS */
+    section{padding:8rem 0;position:relative}
+    .container{max-width:1200px;margin:0 auto;padding:0 3rem}
+    .section-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--pink);margin-bottom:1rem}
+    .section-label::before{content:'✦';font-size:.7rem}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:900;color:var(--deep);line-height:1.12;letter-spacing:-.02em}
+    .section-title .grad{background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .section-title .italic{font-style:italic}
+
+    /* ABOUT */
+    #about{background:var(--cream)}
+    .about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:center}
+    .card-stack{position:relative;height:520px;perspective:1000px}
+    .stack-card{position:absolute;width:88%;border-radius:2.5rem;transform-style:preserve-3d;box-shadow:0 30px 70px rgba(255,107,157,.2);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+    .stack-card:nth-child(1){right:0;bottom:0;height:88%;background:linear-gradient(135deg,#ffe4ee,#ffd6e8);transform:rotate(-5deg) translateY(20px)}
+    .stack-card:nth-child(2){right:4%;bottom:0;height:92%;background:linear-gradient(135deg,#fff0f5,#ffe8f2);transform:rotate(-2deg) translateY(8px)}
+    .stack-card:nth-child(3){right:8%;bottom:0;height:96%;background:#fff;overflow:hidden;transform:rotate(1deg)}
+    .card-stack:hover .stack-card:nth-child(1){transform:rotate(-8deg) translateY(30px) translateX(-10px)}
+    .card-stack:hover .stack-card:nth-child(2){transform:rotate(-3deg) translateY(14px)}
+    .card-stack:hover .stack-card:nth-child(3){transform:rotate(0deg) translateY(-4px)}
+    .about-card-content{width:100%;height:100%;padding:2.5rem;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+    .about-nail-svg{position:absolute;top:-10px;right:-10px;opacity:.12}
+    .about-badge{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--pink),var(--coral));color:#fff;padding:.5rem 1.2rem;border-radius:3rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;width:fit-content;margin-bottom:1rem}
+    .about-card-name{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--deep);line-height:1.1;margin-bottom:.6rem}
+    .about-card-sub{font-size:.88rem;color:var(--muted);line-height:1.7}
+    .about-stats{display:flex;gap:1.5rem;margin-top:.8rem}
+    .astat{text-align:center}
+    .astat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .astat-label{font-size:.7rem;color:var(--muted);letter-spacing:.08em}
+    .about-text{padding-left:1rem}
+    .about-text p{font-size:1rem;color:var(--muted);line-height:1.9;margin-bottom:1.2rem}
+    .pillars{display:flex;flex-direction:column;gap:.8rem;margin-top:1.5rem}
+    .pillar-item{display:flex;align-items:center;gap:.9rem;background:#fff;padding:.9rem 1.2rem;border-radius:1rem;border:1px solid rgba(255,107,157,.12);transition:transform .2s,box-shadow .2s}
+    .pillar-item:hover{transform:translateX(6px);box-shadow:0 6px 24px rgba(255,107,157,.15)}
+    .pillar-icon{width:36px;height:36px;border-radius:.6rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+    .pillar-item strong{font-size:.88rem;color:var(--deep);display:block}
+    .pillar-item span{font-size:.75rem;color:var(--muted)}
+
+    /* SERVICES */
+    #services{background:var(--deep);position:relative;overflow:hidden}
+    #services::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(255,107,157,.15) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(192,132,252,.1) 0%,transparent 50%);pointer-events:none}
+    #services .section-label{color:var(--pink)}
+    #services .section-title{color:#fff}
+    .services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem}
+    .services-header p{font-size:.95rem;color:rgba(255,255,255,.45);max-width:340px;line-height:1.7}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .service-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:1.8rem;padding:2rem 1.8rem;position:relative;overflow:hidden;transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .3s,border-color .3s;cursor:pointer;transform-style:preserve-3d}
+    .service-card::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,var(--c1),var(--c2));opacity:0;transition:opacity .35s}
+    .service-card:hover{border-color:transparent;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+    .service-card:hover::before{opacity:1}
+    .sc-emoji{font-size:2.2rem;margin-bottom:1.2rem;display:block;position:relative;z-index:1;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+    .service-card:hover .sc-emoji{transform:scale(1.3) rotate(-8deg)}
+    .sc-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:.6rem;position:relative;z-index:1}
+    .sc-desc{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.7;position:relative;z-index:1;transition:color .3s}
+    .service-card:hover .sc-desc{color:rgba(255,255,255,.85)}
+    .sc-tag{display:inline-block;margin-top:1rem;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);padding:.3rem .8rem;border-radius:3rem;position:relative;z-index:1;transition:background .3s,color .3s}
+    .service-card:hover .sc-tag{background:rgba(255,255,255,.2);color:#fff}
+    .sc-gel{--c1:#ff6b9d;--c2:#ff4081}
+    .sc-acrylic{--c1:#c084fc;--c2:#9333ea}
+    .sc-art{--c1:#ff7f6b;--c2:#ef4444}
+    .sc-ombre{--c1:#ffb347;--c2:#f97316}
+    .sc-mani{--c1:#4ecdc4;--c2:#0891b2}
+    .sc-pedi{--c1:#fb923c;--c2:#ea580c}
+    .sc-bridal{--c1:#f472b6;--c2:#db2777}
+    .sc-repair{--c1:#a78bfa;--c2:#7c3aed}
+    .sc-loyalty{--c1:#34d399;--c2:#059669}
+
+    /* GALLERY */
+    #gallery{background:var(--cream)}
+    .gallery-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem}
+    .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:260px 260px;gap:1.2rem}
+    .g-item{border-radius:1.8rem;overflow:hidden;position:relative;cursor:pointer;transform-style:preserve-3d;transition:box-shadow .4s}
+    .g-item:hover{box-shadow:0 30px 70px rgba(255,107,157,.25);z-index:2}
+    .g-item:nth-child(1){grid-column:span 5}
+    .g-item:nth-child(2){grid-column:span 3}
+    .g-item:nth-child(3){grid-column:span 4}
+    .g-item:nth-child(4){grid-column:span 4}
+    .g-item:nth-child(5){grid-column:span 4}
+    .g-item:nth-child(6){grid-column:span 4}
+    .g-inner{width:100%;height:100%;display:flex;align-items:flex-end;padding:1.2rem;position:relative}
+    .g-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,10,20,.65) 0%,transparent 55%);opacity:0;transition:opacity .35s}
+    .g-item:hover .g-overlay{opacity:1}
+    .g-label{position:relative;z-index:1;font-family:'Playfair Display',serif;font-size:.95rem;font-style:italic;color:#fff;opacity:0;transform:translateY(8px);transition:all .35s}
+    .g-item:hover .g-label{opacity:1;transform:translateY(0)}
+
+    /* TESTIMONIALS */
+    #testimonials{background:var(--cream);padding-top:2rem}
+    .testimonials-scroll{display:flex;gap:1.5rem;overflow-x:auto;padding:1rem 0 2rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .testimonials-scroll::-webkit-scrollbar{display:none}
+    .t-card{flex:0 0 340px;scroll-snap-align:start;background:#fff;border-radius:2rem;padding:2rem;box-shadow:0 8px 30px rgba(255,107,157,.1);border:1px solid rgba(255,107,157,.1);transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+    .t-card::before{content:'"';position:absolute;top:.5rem;right:1.5rem;font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;background:linear-gradient(135deg,var(--pink),var(--coral));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:.15;line-height:1}
+    .t-card:hover{transform:translateY(-6px) rotate(-.5deg);box-shadow:0 20px 50px rgba(255,107,157,.2)}
+    .t-stars{font-size:.9rem;letter-spacing:2px;margin-bottom:1rem}
+    .t-text{font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:var(--deep);line-height:1.7;margin-bottom:1.5rem;font-weight:400}
+    .t-author{display:flex;align-items:center;gap:.8rem}
+    .t-avatar{width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff}
+    .t-name{font-size:.88rem;font-weight:600;color:var(--deep)}
+    .t-loc{font-size:.72rem;color:var(--muted)}
+    .scroll-hint{text-align:center;font-size:.75rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:.5rem;animation:nudge 2s ease-in-out infinite}
+    @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
+
+    /* BOOKING */
+    #booking{background:linear-gradient(135deg,#fff0f7,#fff8f5,#f5f0ff);position:relative;overflow:hidden}
+    #booking::before{content:'💅';position:absolute;font-size:18rem;opacity:.04;right:-3rem;top:50%;transform:translateY(-50%) rotate(-15deg);pointer-events:none}
+    .booking-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:center}
+    .booking-visual{background:linear-gradient(145deg,var(--pink) 0%,var(--coral) 50%,var(--peach) 100%);border-radius:2.5rem;padding:3.5rem;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(255,107,157,.35);min-height:480px;display:flex;flex-direction:column;justify-content:flex-end;animation:tilt 6s ease-in-out infinite alternate}
+    @keyframes tilt{from{transform:perspective(1000px) rotateY(-3deg) rotateX(2deg)}to{transform:perspective(1000px) rotateY(3deg) rotateX(-2deg)}}
+    .bv-deco{position:absolute;top:-30px;right:-30px;font-size:10rem;opacity:.15;transform:rotate(20deg)}
+    .bv-title{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:1rem;position:relative;z-index:1}
+    .bv-sub{font-size:.9rem;color:rgba(255,255,255,.75);line-height:1.8;position:relative;z-index:1}
+    .bv-perks{margin-top:2rem;display:flex;flex-direction:column;gap:.6rem;position:relative;z-index:1}
+    .bv-perk{display:flex;align-items:center;gap:.7rem;font-size:.84rem;color:rgba(255,255,255,.85)}
+    .bv-perk::before{content:'✓';font-weight:700;font-size:.75rem;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .booking-form h3{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--deep);margin-bottom:.4rem}
+    .booking-form>p{font-size:.88rem;color:var(--muted);margin-bottom:2rem}
+    .form-group{margin-bottom:1.1rem}
+    .form-group label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:.88rem 1.1rem;border:2px solid rgba(255,107,157,.12);border-radius:.9rem;background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;color:var(--deep);outline:none;transition:border-color .2s,box-shadow .2s}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,107,157,.12)}
+    .form-group textarea{resize:vertical;min-height:80px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+    .form-submit{width:100%;padding:1rem;background:linear-gradient(135deg,var(--pink),var(--coral));color:#fff;border:none;border-radius:3rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.06em;cursor:pointer;box-shadow:0 8px 30px rgba(255,107,157,.4);transition:transform .25s,box-shadow .25s;margin-top:.5rem}
+    .form-submit:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 14px 40px rgba(255,107,157,.55)}
+    .policy-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.8rem}
+
+    /* CONTACT */
+    #contact{background:var(--cream);padding-top:2rem}
+    .contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+    .contact-card{background:#fff;border-radius:2rem;padding:2.5rem 2rem;text-align:center;border:1px solid rgba(255,107,157,.1);transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s;text-decoration:none;display:block;position:relative;overflow:hidden}
+    .contact-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--c1),var(--c2));opacity:0;transition:opacity .35s;border-radius:inherit}
+    .contact-card:hover{transform:translateY(-10px) rotate(-1deg);box-shadow:0 30px 60px rgba(255,107,157,.2)}
+    .contact-card:hover::before{opacity:1}
+    .contact-card:hover .cc-icon,.contact-card:hover .cc-title,.contact-card:hover .cc-sub,.contact-card:hover .cc-val{color:#fff!important}
+    .cc-wa{--c1:#25d366;--c2:#128c7e}
+    .cc-tel{--c1:var(--pink);--c2:var(--coral)}
+    .cc-em{--c1:var(--lilac);--c2:#9333ea}
+    .cc-icon{font-size:2.5rem;display:block;margin-bottom:1rem;position:relative;z-index:1;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+    .contact-card:hover .cc-icon{transform:scale(1.2) rotate(-8deg)}
+    .cc-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--deep);margin-bottom:.3rem;position:relative;z-index:1;transition:color .3s}
+    .cc-sub{font-size:.78rem;color:var(--muted);margin-bottom:.5rem;position:relative;z-index:1;transition:color .3s}
+    .cc-val{font-size:.88rem;font-weight:600;color:var(--pink);position:relative;z-index:1;transition:color .3s}
+
+    /* FOOTER */
+    footer{background:var(--deep);padding:4rem 3rem 2rem;text-align:center}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;letter-spacing:-.02em;background:linear-gradient(135deg,var(--pink),var(--coral),var(--peach));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;margin-bottom:.5rem}
+    .footer-motto{font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:2rem}
+    .footer-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+    .footer-links a{font-size:.78rem;color:rgba(255,255,255,.35);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+    .footer-links a:hover{color:var(--pink)}
+    .footer-divider{width:60px;height:1px;background:rgba(255,255,255,.08);margin:0 auto 1.5rem}
+    .footer-copy{font-size:.72rem;color:rgba(255,255,255,.18)}
+
+    /* WHATSAPP */
+    .wa-float{position:fixed;bottom:2rem;right:2rem;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.6rem;box-shadow:0 8px 30px rgba(37,211,102,.4);z-index:400;animation:wa-pulse 2.5s ease-in-out infinite;transition:transform .2s}
+    .wa-float:hover{transform:scale(1.12) rotate(-8deg)}
+    @keyframes wa-pulse{0%,100%{box-shadow:0 8px 30px rgba(37,211,102,.4)}50%{box-shadow:0 8px 50px rgba(37,211,102,.7)}}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(26,10,20,.75);z-index:600;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+    .modal-overlay.active{display:flex}
+    .modal-box{background:#fff;border-radius:2.5rem;padding:3rem;max-width:420px;width:90%;text-align:center;animation:pop-in .4s cubic-bezier(.34,1.56,.64,1)}
+    .modal-box .mi{font-size:3.5rem;margin-bottom:1rem;display:block}
+    .modal-box h3{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--deep);margin-bottom:.5rem}
+    .modal-box p{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+    .modal-close{background:linear-gradient(135deg,var(--pink),var(--coral));color:#fff;border:none;padding:.8rem 2.2rem;border-radius:3rem;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;font-weight:600}
+
+    /* MOBILE MENU */
+    .mobile-menu{display:none;position:fixed;inset:0;top:72px;background:var(--cream);z-index:499;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--deep);text-decoration:none;transition:color .2s}
+    .mobile-menu a:hover{color:var(--pink)}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(40px) scale(.97);transition:opacity .7s ease,transform .7s cubic-bezier(.34,1.56,.64,1)}
+    .reveal.vis{opacity:1;transform:translateY(0) scale(1)}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      nav{padding:1.1rem 1.5rem}
+      .nav-links,.nav-cta{display:none}
+      .hamburger{display:flex}
+      .about-grid,.booking-grid{grid-template-columns:1fr;gap:3rem}
+      .card-stack{height:320px}
+      .services-grid{grid-template-columns:1fr 1fr}
+      .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+      .g-item{grid-column:span 1!important;min-height:200px}
+      .contact-cards{grid-template-columns:1fr}
+      .container{padding:0 1.5rem}
+      section{padding:5rem 0}
+      .nail-float-wrap{display:none}
+      .form-row{grid-template-columns:1fr}
+      .services-header{flex-direction:column}
+      .cursor-dot,.cursor-ring{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Poppy <span>Polish</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">✦ Book Now</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#gallery" onclick="closeMob()">Gallery</a>
+  <a href="#testimonials" onclick="closeMob()">Reviews</a>
+  <a href="#booking" onclick="closeMob()">Book Now</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="blob blob4"></div>
+
+  <p class="hero-eyebrow"><span class="dot"></span> Nairobi's Fave Nail Studio</p>
+  <h1 class="hero-title">
+    <span class="grad italic">Nailed</span>
+    by Poppy
+  </h1>
+  <p class="hero-sub">Where every set is a statement. Gel, acrylics, nail art, ombré — crafted with love and precision for the boldest version of you.</p>
+  <div class="hero-actions">
+    <a href="#booking" class="btn-primary">✦ Book a Session</a>
+    <a href="#gallery" class="btn-ghost">See My Work →</a>
+  </div>
+
+  <!-- floating nail chips -->
+  <div class="nail-float-wrap">
+    <div class="nail-chip nc1">
+      <svg viewBox="0 0 60 80" width="60" height="80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff6b9d"/><stop offset="100%" stop-color="#ff4081"/></linearGradient></defs>
+        <rect x="5" y="5" width="50" height="70" rx="25" fill="url(#g1)"/>
+        <ellipse cx="30" cy="18" rx="18" ry="8" fill="rgba(255,255,255,.25)"/>
+        <circle cx="22" cy="28" r="3" fill="rgba(255,255,255,.3)"/>
+      </svg>
+      <span class="chip-label">Gel</span>
+    </div>
+    <div class="nail-chip nc2">
+      <svg viewBox="0 0 70 90" width="70" height="90" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#9333ea"/></linearGradient></defs>
+        <rect x="5" y="5" width="60" height="80" rx="30" fill="url(#g2)"/>
+        <ellipse cx="35" cy="20" rx="22" ry="9" fill="rgba(255,255,255,.2)"/>
+        <circle cx="35" cy="50" r="8" fill="rgba(255,255,255,.3)"/>
+        <circle cx="27" cy="44" r="5" fill="rgba(255,200,220,.6)"/>
+        <circle cx="43" cy="44" r="5" fill="rgba(255,200,220,.6)"/>
+        <circle cx="27" cy="56" r="5" fill="rgba(255,200,220,.6)"/>
+        <circle cx="43" cy="56" r="5" fill="rgba(255,200,220,.6)"/>
+      </svg>
+      <span class="chip-label">Nail Art</span>
+    </div>
+    <div class="nail-chip nc3">
+      <svg viewBox="0 0 80 105" width="80" height="105" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="70" height="95" rx="35" fill="#ffe4ee"/>
+        <rect x="5" y="5" width="70" height="38" rx="35" fill="#fff"/>
+        <ellipse cx="40" cy="22" rx="26" ry="10" fill="rgba(255,255,255,.7)"/>
+        <line x1="5" y1="42" x2="75" y2="42" stroke="#ffd0df" stroke-width="1.5"/>
+      </svg>
+      <span class="chip-label">French Tips</span>
+    </div>
+    <div class="nail-chip nc4">
+      <svg viewBox="0 0 70 90" width="70" height="90" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff8f5"/><stop offset="100%" stop-color="#ff6b9d"/></linearGradient></defs>
+        <rect x="5" y="5" width="60" height="80" rx="30" fill="url(#g3)"/>
+        <ellipse cx="35" cy="20" rx="22" ry="9" fill="rgba(255,255,255,.4)"/>
+      </svg>
+      <span class="chip-label">Ombré</span>
+    </div>
+    <div class="nail-chip nc5">
+      <svg viewBox="0 0 60 80" width="60" height="80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffb347"/><stop offset="100%" stop-color="#ff7f6b"/></linearGradient></defs>
+        <rect x="5" y="5" width="50" height="70" rx="25" fill="url(#g4)"/>
+        <ellipse cx="30" cy="18" rx="18" ry="7" fill="rgba(255,255,255,.3)"/>
+        <circle cx="24" cy="45" r="4" fill="rgba(255,255,255,.5)"/>
+        <circle cx="36" cy="38" r="3" fill="rgba(255,255,255,.4)"/>
+        <circle cx="33" cy="52" r="2.5" fill="rgba(255,255,255,.45)"/>
+      </svg>
+      <span class="chip-label">Glam</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-gem">💅</span> Gel Manicure</span>
+    <span class="marquee-item"><span class="marquee-gem">✨</span> Acrylic Extensions</span>
+    <span class="marquee-item"><span class="marquee-gem">🎨</span> Nail Art</span>
+    <span class="marquee-item"><span class="marquee-gem">🌈</span> Ombré &amp; Gradient</span>
+    <span class="marquee-item"><span class="marquee-gem">👑</span> Bridal Nails</span>
+    <span class="marquee-item"><span class="marquee-gem">🦋</span> French Tips</span>
+    <span class="marquee-item"><span class="marquee-gem">🌸</span> Pedicure</span>
+    <span class="marquee-item"><span class="marquee-gem">💎</span> Nailed by Poppy</span>
+    <span class="marquee-item"><span class="marquee-gem">💅</span> Gel Manicure</span>
+    <span class="marquee-item"><span class="marquee-gem">✨</span> Acrylic Extensions</span>
+    <span class="marquee-item"><span class="marquee-gem">🎨</span> Nail Art</span>
+    <span class="marquee-item"><span class="marquee-gem">🌈</span> Ombré &amp; Gradient</span>
+    <span class="marquee-item"><span class="marquee-gem">👑</span> Bridal Nails</span>
+    <span class="marquee-item"><span class="marquee-gem">🦋</span> French Tips</span>
+    <span class="marquee-item"><span class="marquee-gem">🌸</span> Pedicure</span>
+    <span class="marquee-item"><span class="marquee-gem">💎</span> Nailed by Poppy</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="card-stack reveal">
+        <div class="stack-card"></div>
+        <div class="stack-card"></div>
+        <div class="stack-card">
+          <div class="about-card-content">
+            <svg class="about-nail-svg" viewBox="0 0 200 280" width="200" height="280" xmlns="http://www.w3.org/2000/svg">
+              <defs><linearGradient id="bgn" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff6b9d"/><stop offset="100%" stop-color="#ff4081"/></linearGradient></defs>
+              <rect x="10" y="10" width="180" height="260" rx="90" fill="url(#bgn)"/>
+              <ellipse cx="100" cy="55" rx="72" ry="28" fill="rgba(255,255,255,.25)"/>
+            </svg>
+            <div class="about-badge">💅 Certified Nail Artist</div>
+            <div class="about-card-name">Poppy,<br/>Nairobi's Nail Queen</div>
+            <div class="about-card-sub">Serving glam since 2019 · Licensed &amp; insured</div>
+            <div class="about-stats">
+              <div class="astat"><div class="astat-num">300+</div><div class="astat-label">Happy Clients</div></div>
+              <div class="astat"><div class="astat-num">4.9★</div><div class="astat-label">Rating</div></div>
+              <div class="astat"><div class="astat-num">5yrs</div><div class="astat-label">Experience</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text reveal">
+        <p class="section-label">The Artist</p>
+        <h2 class="section-title">Hello, I'm <span class="grad italic">Poppy</span></h2>
+        <br/>
+        <p>With 5 years of turning nails into tiny works of art across Nairobi, I built Poppy Polish on one belief: your nails should make you feel like the main character.</p>
+        <p>From 3D nail art to Korean glass nails, I stay ahead of global trends while bringing a warm, personal touch to every appointment. No rushed jobs, no compromises — ever.</p>
+        <div class="pillars">
+          <div class="pillar-item">
+            <div class="pillar-icon" style="background:#fff0f7;">🧴</div>
+            <div><strong>Hygiene is non-negotiable</strong><span>Sterilized tools, every single session</span></div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-icon" style="background:#f5f0ff;">💎</div>
+            <div><strong>Premium products only</strong><span>Top-tier gel, acrylic &amp; nail art brands</span></div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-icon" style="background:#f0fff9;">🎨</div>
+            <div><strong>Fully custom designs</strong><span>Your personality, your nails</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <p class="section-label">What I Do</p>
+        <h2 class="section-title">Every Set, a <span class="grad">Vibe</span></h2>
+      </div>
+      <p>From your everyday glam to your biggest moments. WhatsApp for a custom quote!</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card sc-gel reveal"><span class="sc-emoji">💅</span><div class="sc-name">Gel Manicure</div><p class="sc-desc">Long-lasting, chip-free, mirror-shine gel colour. Up to 3 weeks of flawless nails — zero effort from you.</p><span class="sc-tag">Most Popular</span></div>
+      <div class="service-card sc-acrylic reveal"><span class="sc-emoji">✨</span><div class="sc-name">Acrylic Extensions</div><p class="sc-desc">Sculpted full sets in any length or shape — coffin, almond, stiletto, square. You name it, Poppy delivers.</p><span class="sc-tag">45–90 mins</span></div>
+      <div class="service-card sc-art reveal"><span class="sc-emoji">🎨</span><div class="sc-name">Nail Art Design</div><p class="sc-desc">Freehand florals, geometric, abstract, 3D textures, character art — literally anything you can dream up.</p><span class="sc-tag">Custom</span></div>
+      <div class="service-card sc-ombre reveal"><span class="sc-emoji">🌈</span><div class="sc-name">Ombré &amp; Gradient</div><p class="sc-desc">Seamless colour blending for a dreamy editorial look. Baby boomer, sunset, pastel — your vibe, your rules.</p><span class="sc-tag">Ask for Quote</span></div>
+      <div class="service-card sc-mani reveal"><span class="sc-emoji">🌸</span><div class="sc-name">Classic Manicure</div><p class="sc-desc">Shaping, cuticle care, buffing and your favourite polish colour. The perfect weekly pick-me-up.</p><span class="sc-tag">~45 mins</span></div>
+      <div class="service-card sc-pedi reveal"><span class="sc-emoji">🦶</span><div class="sc-name">Pedicure</div><p class="sc-desc">Foot soak, scrub, callus removal, shape, cuticle care and polish. Your feet deserve the spotlight too.</p><span class="sc-tag">~60 mins</span></div>
+      <div class="service-card sc-bridal reveal"><span class="sc-emoji">👑</span><div class="sc-name">Bridal &amp; Event Nails</div><p class="sc-desc">Full glam for your most important moments. Consultation, trial session, and flawless execution on the day.</p><span class="sc-tag">Book Early</span></div>
+      <div class="service-card sc-repair reveal"><span class="sc-emoji">🔧</span><div class="sc-name">Repair &amp; Infill</div><p class="sc-desc">Broken nail? Grown-out acrylics? Quick, seamless repairs and infills to keep your set looking fresh.</p><span class="sc-tag">~30 mins</span></div>
+      <div class="service-card sc-loyalty reveal"><span class="sc-emoji">💌</span><div class="sc-name">Loyalty Reward</div><p class="sc-desc">Every 10th service is completely FREE! Ask about your loyalty stamp card on your first visit.</p><span class="sc-tag">Returning Clients</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <div>
+        <p class="section-label">Portfolio</p>
+        <h2 class="section-title">The <span class="grad italic">Work</span></h2>
+      </div>
+      <a href="https://wa.me/254718605695?text=Hi%20Poppy!%20I%20saw%20your%20portfolio%20and%20I%27d%20love%20to%20book." class="btn-primary" target="_blank" style="font-size:.82rem;padding:.75rem 1.6rem;">Book Your Look ✦</a>
+    </div>
+    <div class="gallery-grid">
+
+      <div class="g-item reveal">
+        <img src="nail1.jpg" alt="Floral Almond Set" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div class="g-inner">
+          <div class="g-overlay"></div>
+          <span class="g-label">Floral Almond Set</span>
+        </div>
+      </div>
+
+      <div class="g-item reveal">
+        <img src="nail2.jpg" alt="Sunset Ombré" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div class="g-inner">
+          <div class="g-overlay"></div>
+          <span class="g-label">Sunset Ombré</span>
+        </div>
+      </div>
+
+      <div class="g-item reveal">
+        <img src="nail3.jpg" alt="Galaxy Glitter Set" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div class="g-inner">
+          <div class="g-overlay"></div>
+          <span class="g-label">Galaxy Glitter Set</span>
+        </div>
+      </div>
+
+      <div class="g-item reveal">
+        <img src="nail4.jpg" alt="Classic French Tips" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div class="g-inner">
+          <div class="g-overlay"></div>
+          <span class="g-label">Classic French Tips</span>
+        </div>
+      </div>
+
+      <div class="g-item reveal">
+        <img src="nail5.jpg" alt="Mint Line Art Stiletto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div class="g-inner">
+          <div class="g-overlay"></div>
+          <span class="g-label">Mint Line Art Stiletto</span>
+        </div>
+      </div>
+
+      <div class="g-item reveal">
+        <img src="nail6.jpg" alt="Bridal Coffin Gems" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div class="g-inner">
+          <div class="g-overlay"></div>
+          <span class="g-label">Bridal Coffin Gems</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <p class="section-label">Client Love</p>
+        <h2 class="section-title">They're <span class="grad italic">Obsessed</span></h2>
+      </div>
+      <p style="font-size:.82rem;color:var(--muted);">← Swipe to read more →</p>
+    </div>
+    <div class="testimonials-scroll">
+      <div class="t-card">
+        <div class="t-stars" style="color:#ff6b9d;">★★★★★</div>
+        <p class="t-text">"Poppy is an absolute artist. I showed her a reference photo and she made it even better. My nails lasted 4 full weeks — zero chips!"</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:linear-gradient(135deg,#ff6b9d,#ff4081);">A</div>
+          <div><div class="t-name">Amina Wanjiku</div><div class="t-loc">Westlands, Nairobi</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" style="color:#c084fc;">★★★★★</div>
+        <p class="t-text">"I've tried so many nail techs in Nairobi and Poppy Polish is in a league of its own. Spotless studio, gentle cuticle work, and genuinely stunning nail art."</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:linear-gradient(135deg,#c084fc,#9333ea);">S</div>
+          <div><div class="t-name">Sheila Otieno</div><div class="t-loc">Kilimani, Nairobi</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" style="color:#ff7f6b;">★★★★★</div>
+        <p class="t-text">"She did my bridal nails and I cried when I saw them — in the BEST way. Every single wedding guest asked who did them. I send everyone to Poppy!"</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:linear-gradient(135deg,#ff7f6b,#ef4444);">F</div>
+          <div><div class="t-name">Faith Muthoni</div><div class="t-loc">Karen, Nairobi</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" style="color:#4ecdc4;">★★★★★</div>
+        <p class="t-text">"My gel set has been on for 3 weeks and still looks freshly done. Poppy is now my permanent nail tech — no question. Booking on WhatsApp is so easy too!"</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:linear-gradient(135deg,#4ecdc4,#0891b2);">P</div>
+          <div><div class="t-name">Patricia Njeri</div><div class="t-loc">South C, Nairobi</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" style="color:#ffb347;">★★★★★</div>
+        <p class="t-text">"She takes her time to understand what you want instead of rushing. The ombré she created got so many compliments at work. Truly nailed it — pun intended!"</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:linear-gradient(135deg,#ffb347,#f97316);">G</div>
+          <div><div class="t-name">Grace Kamau</div><div class="t-loc">Parklands, Nairobi</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" style="color:#ff6b9d;">★★★★★</div>
+        <p class="t-text">"First time client and I felt so comfortable the whole way. She explained everything, used amazing products, and the result? Absolutely chef's kiss. Already booked again!"</p>
+        <div class="t-author">
+          <div class="t-avatar" style="background:linear-gradient(135deg,#f472b6,#db2777);">L</div>
+          <div><div class="t-name">Lydia Achieng</div><div class="t-loc">Langata, Nairobi</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="scroll-hint">Swipe for more reviews →</p>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="container">
+    <div class="booking-grid">
+      <div class="booking-visual reveal">
+        <div class="bv-deco">💅</div>
+        <div class="bv-title">Get Nailed<br/>by Poppy ✦</div>
+        <div class="bv-sub">Fill the form and I'll confirm your slot via WhatsApp within 2 hours during working hours.</div>
+        <div class="bv-perks">
+          <div class="bv-perk">Mon – Sat: 8:00 AM – 7:00 PM</div>
+          <div class="bv-perk">Sunday: 10:00 AM – 4:00 PM</div>
+          <div class="bv-perk">Home visits available on request</div>
+          <div class="bv-perk">Group bookings welcome</div>
+          <div class="bv-perk">50% deposit to secure your slot</div>
+        </div>
+      </div>
+      <div class="booking-form reveal">
+        <h3>Book a Session</h3>
+        <p>I'll reply via WhatsApp to confirm your appointment 💅</p>
+        <div class="form-row">
+          <div class="form-group"><label>Your Name</label><input type="text" id="fname" placeholder="e.g. Amina"/></div>
+          <div class="form-group"><label>WhatsApp / Phone</label><input type="tel" id="fphone" placeholder="07XX XXX XXX"/></div>
+        </div>
+        <div class="form-group">
+          <label>Service</label>
+          <select id="fservice">
+            <option value="">— What are we doing? —</option>
+            <option>Gel Manicure</option>
+            <option>Acrylic Extensions</option>
+            <option>Nail Art Design</option>
+            <option>Ombré &amp; Gradient</option>
+            <option>Classic Manicure</option>
+            <option>Pedicure</option>
+            <option>Bridal &amp; Event Nails</option>
+            <option>Repair &amp; Infill</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Preferred Date</label><input type="date" id="fdate"/></div>
+          <div class="form-group">
+            <label>Preferred Time</label>
+            <select id="ftime">
+              <option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option>
+              <option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option>
+              <option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
+              <option>5:00 PM</option><option>6:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Inspo / Notes (optional)</label><textarea id="fnotes" placeholder="Describe your dream nails, colours, allergies..."></textarea></div>
+        <button class="form-submit" onclick="submitBooking()">✦ Send Booking Request</button>
+        <p class="policy-note">💬 24hr cancellation notice · 50% deposit to confirm your slot</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:1rem;">
+      <p class="section-label" style="justify-content:center;">Come Say Hi</p>
+      <h2 class="section-title">Let's <span class="grad italic">Connect</span></h2>
+    </div>
+    <div class="contact-cards">
+      <a href="https://wa.me/254718605695?text=Hi%20Poppy!%20I%27d%20love%20to%20book%20a%20nail%20appointment." class="contact-card cc-wa reveal" target="_blank">
+        <span class="cc-icon">💬</span>
+        <div class="cc-title">WhatsApp</div>
+        <div class="cc-sub">Fastest way to book</div>
+        <div class="cc-val">0718 605 695</div>
+      </a>
+      <a href="tel:0718605695" class="contact-card cc-tel reveal">
+        <span class="cc-icon">📞</span>
+        <div class="cc-title">Call Me</div>
+        <div class="cc-sub">Mon – Sat · 8AM – 7PM</div>
+        <div class="cc-val">0718 605 695</div>
+      </a>
+      <a href="mailto:virginiapoppy49@gmail.com" class="contact-card cc-em reveal">
+        <span class="cc-icon">✉️</span>
+        <div class="cc-title">Email</div>
+        <div class="cc-sub">For enquiries &amp; bookings</div>
+        <div class="cc-val">virginiapoppy49@gmail.com</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Poppy Polish</div>
+  <div class="footer-motto">Nailed by Poppy · Nairobi, Kenya</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#booking">Book Now</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-copy">© 2025 Poppy Polish · Nailed by Poppy · All rights reserved · Nairobi, Kenya</div>
+</footer>
+
+<a href="https://wa.me/254718605695?text=Hi%20Poppy!%20I%27d%20love%20to%20book%20an%20appointment." class="wa-float" target="_blank" title="Chat on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<div class="modal-overlay" id="successModal">
+  <div class="modal-box">
+    <span class="mi">🌸</span>
+    <h3>You're booked!</h3>
+    <p>Poppy will confirm your appointment on WhatsApp within 2 hours. Get ready to be <em>Nailed by Poppy!</em></p>
+    <button class="modal-close" onclick="closeModal()">Can't wait! 💅</button>
+  </div>
+</div>
+
+<script>
+  // Custom cursor
+  const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+  document.addEventListener('mousemove',e=>{
+    dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+    setTimeout(()=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';},80);
+  });
+  document.querySelectorAll('a,button,.service-card,.g-item,.t-card,.contact-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{dot.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.transform='translate(-50%,-50%) scale(1.6)';});
+    el.addEventListener('mouseleave',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)';});
+  });
+
+  // Nav shadow
+  window.addEventListener('scroll',()=>{
+    document.getElementById('navbar').style.boxShadow=window.scrollY>40?'0 4px 30px rgba(255,107,157,.12)':'none';
+  });
+
+  // Hamburger
+  document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('open'));
+  function closeMob(){document.getElementById('mobileMenu').classList.remove('open')}
+
+  // Scroll reveal
+  const ro=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('vis'),i*70);});
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+  // Min date
+  const di=document.getElementById('fdate');
+  if(di)di.min=new Date().toISOString().split('T')[0];
+
+  // Booking → WhatsApp
+  function submitBooking(){
+    const name=document.getElementById('fname').value.trim();
+    const phone=document.getElementById('fphone').value.trim();
+    const service=document.getElementById('fservice').value;
+    const date=document.getElementById('fdate').value;
+    const time=document.getElementById('ftime').value;
+    const notes=document.getElementById('fnotes').value.trim();
+    if(!name||!phone||!service||!date){alert('Please fill in your name, phone number, service and preferred date 💅');return;}
+    const msg=encodeURIComponent(`Hi Poppy! I'd love to book a nail appointment 💅\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n💅 Service: ${service}\n📅 Date: ${date}\n⏰ Time: ${time}`+(notes?`\n📝 Notes: ${notes}`:''));
+    window.open(`https://wa.me/254718605695?text=${msg}`,'_blank');
+    document.getElementById('successModal').classList.add('active');
+  }
+  function closeModal(){document.getElementById('successModal').classList.remove('active')}
+  document.getElementById('successModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+
+  // 3D tilt on service cards
+  document.querySelectorAll('.service-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`translateY(-10px) scale(1.02) rotateX(${-y*12}deg) rotateY(${x*12}deg)`;
+    });
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+  });
+
+  // 3D tilt on gallery
+  document.querySelectorAll('.g-item').forEach(item=>{
+    item.addEventListener('mousemove',e=>{
+      const r=item.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      item.style.transform=`translateY(-8px) scale(1.02) rotateX(${-y*8}deg) rotateY(${x*8}deg)`;
+    });
+    item.addEventListener('mouseleave',()=>{item.style.transform='';});
+  });
+</script>
+</body>
+</html>
